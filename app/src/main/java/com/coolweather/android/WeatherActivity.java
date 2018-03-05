@@ -36,7 +36,7 @@ import okhttp3.Response;
 
 public class WeatherActivity extends AppCompatActivity {
 
-    private String weatherId;
+    public String weatherId;
     private ScrollView weatherLayout;
     private TextView titleCity;
     private TextView titleUpdateTime;
@@ -109,12 +109,10 @@ public class WeatherActivity extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                SharedPreferences.Editor editor =
-                        PreferenceManager.getDefaultSharedPreferences(WeatherActivity.this).edit();
-                editor.putString("weather_id",weatherId);
-                editor.apply();
-
-                requestWeather(weatherId);
+                SharedPreferences prefers =
+                        PreferenceManager.getDefaultSharedPreferences(WeatherActivity.this);
+                String weather_id = prefers.getString("weather_id", weatherId);
+                requestWeather(weather_id);
             }
         });
         //加载微软必应每日一图
